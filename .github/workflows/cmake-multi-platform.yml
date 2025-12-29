@@ -31,9 +31,6 @@ jobs:
             c_compiler: cl
             cpp_compiler: cl
           - os: ubuntu-latest
-            c_compiler: gcc
-            cpp_compiler: g++
-          - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
         exclude:
@@ -43,6 +40,9 @@ jobs:
             c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
+          - os: ubuntu-latest
+            c_compiler: gcc
+            cpp_compiler: g++
 
     steps:
     - uses: actions/checkout@v4
@@ -77,14 +77,14 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: cpp-github-actions-demo-linux-Release
+        name: cpp-github-actions-demo-${{ matrix.os }}-${{ matrix.build_type }}
         path: ${{ steps.strings.outputs.build-output-dir }}/cpp_github_actions_demo
 
     - name: Upload build artifact (Windows)
       if: matrix.os == 'windows-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: cpp-github-actions-demo-windows-Release
+        name: cpp-github-actions-demo-${{ matrix.os }}-${{ matrix.build_type }}
         path: ${{ steps.strings.outputs.build-output-dir }}/cpp_github_actions_demo.exe
 
 
