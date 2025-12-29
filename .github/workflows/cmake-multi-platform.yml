@@ -76,8 +76,11 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: cpp-github-actions-demo-binaries${{ matrix.os }}
-        path: ${{ steps.strings.outputs.build-output-dir }}/cpp-github-actions-demo
+        name: cpp-github-actions-demo-binaries${{ matrix.os }}-${{ matrix.build_type }}
+        path:  ${{ steps.strings.outputs.build-output-dir }}/${
+          { matrix.os == 'windows-latest' && 'cpp_github_actions_demo.exe' || 'cpp_github_actions_demo' }
+          }
+
 
 
 
