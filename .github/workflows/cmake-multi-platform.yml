@@ -4,7 +4,8 @@ name: CMake on multiple platforms
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+      - 'v*' 
   pull_request:
     branches: [ "master" ]
 
@@ -85,8 +86,28 @@ jobs:
       with:
         name: cpp-github-actions-demo-${{ matrix.os }}-${{ matrix.build_type }}
         path: ${{ steps.strings.outputs.build-output-dir }}/Release/cpp_github_actions_demo.exe
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
 
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
 
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          files: release-artifacts/*
 
 
 
