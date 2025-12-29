@@ -73,13 +73,20 @@ jobs:
       # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
-    - name: Upload build artifacts
+    - name: Upload build artifact (Linux)
+      if: matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: cpp-github-actions-demo-binaries${{ matrix.os }}-${{ matrix.build_type }}
-        path:  ${{ steps.strings.outputs.build-output-dir }}/${
-          { matrix.os == 'windows-latest' && 'cpp_github_actions_demo.exe' || 'cpp_github_actions_demo' }
-          }
+        name: cpp-github-actions-demo-linux-Release
+        path: ${{ steps.strings.outputs.build-output-dir }}/cpp_github_actions_demo
+
+    - name: Upload build artifact (Windows)
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: cpp-github-actions-demo-windows-Release
+        path: ${{ steps.strings.outputs.build-output-dir }}/cpp_github_actions_demo.exe
+
 
 
 
