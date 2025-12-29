@@ -77,6 +77,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: cpp-github-actions-demo-binaries
-        path: ${{ steps.strings.outputs.build-output-dir }}/cpp-github-actions-demo
+        path: ${{ steps.strings.outputs.build-output-dir }}/
+
+
 
 
