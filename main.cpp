@@ -10,14 +10,16 @@ int main() {
     std::cout << "Build type      : Debug\n";
 #endif
 
-    std::cout << "Compiler        : " << __VERSION__ << "\n";
 
 #if defined(__clang__)
     std::cout << "Compiler family : Clang\n";
+    std::cout << "Compiler        : " << __VERSION__ << "\n";
 #elif defined(__GNUC__)
     std::cout << "Compiler family : GCC\n";
+    std::cout << "Compiler        : " << __VERSION__ << "\n";
 #elif defined(_MSC_VER)
     std::cout << "Compiler family : MSVC\n";
+    std::cout << "Compiler version: " << _MSC_FULL_VER << "\n";
 #else
     std::cout << "Compiler family : Unknown\n";
 #endif
