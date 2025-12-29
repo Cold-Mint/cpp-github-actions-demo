@@ -74,7 +74,7 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cpp-github-actions-demo-binaries
         path: ${{ steps.strings.outputs.build-output-dir }}/cpp-github-actions-demo
